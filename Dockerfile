@@ -1,0 +1,6 @@
+# FROM node:10.20.1
+# WORKDIR /
+# COPY package.json yarn.lock ./
+# RUN yarn
+
+# COPY . .

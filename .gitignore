@@ -1,0 +1,23 @@
+# compiled output
+/dist
+/node_modules
+
+# OS
+.DS_Store
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Env
+.env
+.env.prod
+
+# DB
+ormconfig.json
+
+# Docker
+volumes
