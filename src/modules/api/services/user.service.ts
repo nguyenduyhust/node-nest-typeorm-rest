@@ -15,7 +15,7 @@ export interface CreateUserInput {
 
 export interface UserResponse {
   id: string;
-  username: string;
+  email: string;
   fullName: string;
   phone: string;
   createdAt: Date;
@@ -51,8 +51,8 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  async findOneByUsername(username: string) {
-    return this.userRepository.findOne({ username });
+  async findOneByUsername(email: string) {
+    return this.userRepository.findOne({ email });
   }
 
   async findOneById(id: string) {

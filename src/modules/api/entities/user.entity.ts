@@ -20,7 +20,7 @@ export class User extends BaseModel {
     unique: true,
     nullable: false,
   })
-  username: string;
+  email: string;
 
   @Exclude()
   @Column({

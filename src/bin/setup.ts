@@ -20,7 +20,7 @@ if (fs.existsSync(`${ROOT_DIR}/.env`)) {
   dotenv.config();
 }
 // Check typeORM documentation for more information.
-const ormconfig: ConnectionOptions = {
+const ormconfig: ConnectionOptions & { seeds: string[], factories: string[] } = {
   type: process.env.DATABASE_TYPE as any,
   host: process.env.DATABASE_HOST,
   port: parseInt(process.env.MYSQL_PORT),
@@ -40,7 +40,9 @@ const ormconfig: ConnectionOptions = {
     'entitiesDir': 'src/modules/api/entities',
     'subscribersDir': 'src/modules/api/subscribers',
     'migrationsDir': 'src/db/migrations'
-  }
+  },
+  seeds: ['src/db/seeding/seeds/**/*{.ts,.js}'],
+  factories: ['src/db/seeding/factories/**/*{.ts,.js}']
 };
 // sample : https://www.npmjs.com/package/command-line-args
 const optionDefinitions = [
