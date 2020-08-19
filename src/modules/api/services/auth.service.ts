@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';;
 import { User } from '@api/entities';
 import { TokenHelper, ErrorHelper, EncryptHelper } from '@base/helpers';
-import { CONFIGURATION_KEYS } from '@config';
 import { UserService } from '@api/services';
 import { TokenPayload } from '@api/interfaces';
 import { ConfigService } from '@nestjs/config';
@@ -35,7 +34,7 @@ export class AuthService {
 
   async verifyRefreshToken(refreshToken: string) {
     try {
-      const tokenObject = await TokenHelper.verify<TokenPayload>(refreshToken, `refresh_${this.config.get(CONFIGURATION_KEYS.SECRET)}`);
+      const tokenObject = await TokenHelper.verify<TokenPayload>(refreshToken, `refresh_${this.config.get('app.auth.secret')}`);
       await this.checkToken(tokenObject);
       const user = await this.userService.findOneById(tokenObject.user_id);
       this.checkUser(user);
@@ -52,10 +51,10 @@ export class AuthService {
   async generatedAccessToken(user: User, refresh_token = '') {
     const tokenObj = await TokenHelper.generate({
       user_id: user.id
-    }, this.config.get(CONFIGURATION_KEYS.SECRET), parseInt(this.config.get(CONFIGURATION_KEYS.TOKEN_EXPIRES)));
+    }, this.config.get('app.auth.secret'), parseInt(this.config.get('app.auth.tokenExpires')));
     const refreshTokenObj = await TokenHelper.generate({
       user_id: user.id
-    }, `refresh_${this.config.get(CONFIGURATION_KEYS.SECRET)}`, this.config.get(CONFIGURATION_KEYS.REFRESH_TOKEN_EXPIRES));
+    }, `refresh_${this.config.get('app.auth.secret')}`, this.config.get('app.auth.refreshTokenExpires'));
 
     return {
       token: tokenObj.token,
@@ -67,7 +66,7 @@ export class AuthService {
 
   async verifyUser(token: string): Promise<User> {
     try {
-      const tokenObject = await TokenHelper.verify<TokenPayload>(token, this.config.get(CONFIGURATION_KEYS.SECRET));
+      const tokenObject = await TokenHelper.verify<TokenPayload>(token, this.config.get('app.auth.secret'));
       await this.checkToken(tokenObject);
       const user = await this.userService.findOneById(tokenObject.user_id);
       this.checkUser(user);
