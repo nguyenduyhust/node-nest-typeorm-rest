@@ -27,6 +27,9 @@
       "@api/*": [
         "src/modules/api/*"
       ],
+      "@batch/*": [
+        "src/modules/batch/*"
+      ],
       "*": [
         "./node_modules/*"
       ]

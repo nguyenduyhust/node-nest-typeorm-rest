@@ -3,7 +3,6 @@ import { ApiBearerAuth, ApiTags, ApiResponse, ApiQuery, } from '@nestjs/swagger'
 import { classToPlain } from 'class-transformer';
 import { ConfigService } from '@nestjs/config';
 
-import { CONFIGURATION_KEYS } from '@config';
 import { UserService } from '@api/services/user.service';
 import { UserDTO, CreateUserDTO, UpdateUserDTO } from '@api/dtos';
 
@@ -28,7 +27,7 @@ export class UserController {
     return this.userService.findAll({
       page,
       limit,
-      route: `${this.configService.get(CONFIGURATION_KEYS.API_URL)}/admin/users`,
+      route: `${this.configService.get('app.apiUrl')}/admin/users`,
     }, s);
   }
 

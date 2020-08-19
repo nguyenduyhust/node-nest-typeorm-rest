@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { RouterModule, Routes } from 'nest-router';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ApiModule } from '@api/api.module';
-import { configuration, CONFIGURATION_KEYS } from '@config';
+import { configuration } from '@config';
+import { BatchModule } from '@batch/batch.module';
 
 const routes: Routes = [{
   path: 'api',
@@ -17,18 +17,19 @@ const routes: Routes = [{
   imports: [
     // load config
     ConfigModule.forRoot({
+      envFilePath: process.env.NODE_ENV === 'development' ? '.env' : '.env.prod',
       load: [configuration],
     }),
     // DB Connection
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: configService.get<string>(CONFIGURATION_KEYS.DATABASE_TYPE) as any,
-        host: configService.get<string>(CONFIGURATION_KEYS.DATABASE_HOST),
-        port: configService.get<number>(CONFIGURATION_KEYS.MYSQL_PORT),
-        username: configService.get<string>(CONFIGURATION_KEYS.MYSQL_USER),
-        password: configService.get<string>(CONFIGURATION_KEYS.MYSQL_PASSWORD),
-        database: configService.get<string>(CONFIGURATION_KEYS.MYSQL_DATABASE),
+        type: configService.get('database.type') as any,
+        host: configService.get('database.host'),
+        port: configService.get('database.port'),
+        username: configService.get('database.username'),
+        password: configService.get('database.password'),
+        database: configService.get<string>('database.name'),
         // try autoload entities
         autoLoadEntities: true,
         // {module}/entities/entity.entity.ts
@@ -43,10 +44,10 @@ const routes: Routes = [{
     RouterModule.forRoutes(routes),
     // add modules
     ApiModule,
-    // public folder
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public')
-    })
+    // schedule
+    ScheduleModule.forRoot(),
+    // batch
+    BatchModule,
   ],
   controllers: [],
   providers: [],
