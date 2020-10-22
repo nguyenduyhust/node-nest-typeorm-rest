@@ -5,7 +5,6 @@ import { Exclude } from 'class-transformer';
 
 @Entity('user')
 export class User extends BaseModel {
-
   constructor(partial: Partial<User>) {
     super();
     Object.assign(this, partial);

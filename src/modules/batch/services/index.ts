@@ -1,10 +1,5 @@
 import { LogService } from './log.service';
 
-const SERVICES = [
-  LogService,
-];
+const SERVICES = [LogService];
 
-export {
-  LogService,
-  SERVICES,
-};
+export { LogService, SERVICES };

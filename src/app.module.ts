@@ -8,16 +8,19 @@ import { ApiModule } from '@api/api.module';
 import { configuration } from '@config';
 import { BatchModule } from '@batch/batch.module';
 
-const routes: Routes = [{
-  path: 'api',
-  module: ApiModule,
-}];
+const routes: Routes = [
+  {
+    path: 'api',
+    module: ApiModule,
+  },
+];
 
 @Module({
   imports: [
     // load config
     ConfigModule.forRoot({
-      envFilePath: process.env.NODE_ENV === 'development' ? '.env' : '.env.prod',
+      envFilePath:
+        process.env.NODE_ENV === 'development' ? '.env' : '.env.prod',
       load: [configuration],
     }),
     // DB Connection
@@ -52,4 +55,4 @@ const routes: Routes = [{
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

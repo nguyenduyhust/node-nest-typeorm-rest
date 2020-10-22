@@ -7,7 +7,7 @@ export default () => ({
       secret: process.env.SECRET || 'kdp@n34ldn',
       tokenExpires: process.env.TOKEN_EXPIRES || 3600,
       refreshTokenExpires: process.env.REFRESH_TOKEN_EXPIRES || '1d',
-    }
+    },
   },
   database: {
     type: process.env.DATABASE_TYPE || 'NEED TO CONFIGURED',

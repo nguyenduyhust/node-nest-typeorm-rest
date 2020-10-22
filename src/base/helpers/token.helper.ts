@@ -4,7 +4,6 @@ import * as jwt from 'jsonwebtoken';
  * Token helper
  */
 export class TokenHelper {
-
   /**
    * Signs token helper
    * @param payload - your json object
@@ -12,18 +11,17 @@ export class TokenHelper {
    * @param expiresIn - seconds
    * @returns
    */
-  static async generate(payload: Record<string, any>, secret: string, expiresIn: number): Promise<{
-    token: string,
-    expires: number,
+  static async generate(
+    payload: Record<string, any>,
+    secret: string,
+    expiresIn: number,
+  ): Promise<{
+    token: string;
+    expires: number;
   }> {
-
-    const token = await jwt.sign(
-      payload,
-      secret,
-      {
-        expiresIn: expiresIn
-      }
-    );
+    const token = await jwt.sign(payload, secret, {
+      expiresIn: expiresIn,
+    });
 
     const decoded = jwt.decode(token);
     return {
@@ -48,6 +46,6 @@ export class TokenHelper {
       } catch (error) {
         reject(error);
       }
-    })
+    });
   }
 }

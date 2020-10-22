@@ -10,8 +10,8 @@ const log = console.log;
 const todoList = {
   createORMFile: {
     task: 'Create ormconfig.json',
-    status: true
-  }
+    status: true,
+  },
 };
 
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
@@ -20,7 +20,10 @@ if (fs.existsSync(`${ROOT_DIR}/.env`)) {
   dotenv.config();
 }
 // Check typeORM documentation for more information.
-const ormconfig: ConnectionOptions & { seeds: string[], factories: string[] } = {
+const ormconfig: ConnectionOptions & {
+  seeds: string[];
+  factories: string[];
+} = {
   type: process.env.DATABASE_TYPE as any,
   host: process.env.DATABASE_HOST,
   port: parseInt(process.env.MYSQL_PORT),
@@ -30,28 +33,21 @@ const ormconfig: ConnectionOptions & { seeds: string[], factories: string[] } = 
   synchronize: false,
   logging: true,
   logger: 'advanced-console',
-  entities: [
-    'src/modules/api/entities/*.ts'
-  ],
-  migrations: [
-    'src/db/migrations/**/*.ts'
-  ],
+  entities: ['src/modules/api/entities/*.ts'],
+  migrations: ['src/db/migrations/**/*.ts'],
   cli: {
-    'entitiesDir': 'src/modules/api/entities',
-    'subscribersDir': 'src/modules/api/subscribers',
-    'migrationsDir': 'src/db/migrations'
+    entitiesDir: 'src/modules/api/entities',
+    subscribersDir: 'src/modules/api/subscribers',
+    migrationsDir: 'src/db/migrations',
   },
   seeds: ['src/db/seeding/seeds/**/*{.ts,.js}'],
-  factories: ['src/db/seeding/factories/**/*{.ts,.js}']
+  factories: ['src/db/seeding/factories/**/*{.ts,.js}'],
 };
 // sample : https://www.npmjs.com/package/command-line-args
-const optionDefinitions = [
-  { name: 'force', alias: 'f', type: Boolean }
-];
+const optionDefinitions = [{ name: 'force', alias: 'f', type: Boolean }];
 const options: {
-  force: boolean,
+  force: boolean;
 } = commandLineArgs(optionDefinitions);
-
 
 log(chalk.blue('STARTING SETUP'));
 log('---------------------');
@@ -75,7 +71,11 @@ if (fs.existsSync(ormconfigFile) && !options.force) {
 // statuses
 
 Object.keys(todoList).map((k, idx) => {
-  log(`${idx + 1}. ${todoList[k].task} - ${todoList[k].status ? chalk.green('success') : chalk.red('failed')}`);
+  log(
+    `${idx + 1}. ${todoList[k].task} - ${
+      todoList[k].status ? chalk.green('success') : chalk.red('failed')
+    }`,
+  );
 });
 
 log('---------------------');

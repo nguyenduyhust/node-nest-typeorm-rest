@@ -1,19 +1,19 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class ErrorHelper {
   static BadRequestException(msg: string) {
-    throw new HttpException(msg, HttpStatus.BAD_REQUEST)
+    throw new HttpException(msg, HttpStatus.BAD_REQUEST);
   }
   static UnauthorizedException(msg: string) {
-    throw new HttpException(msg, HttpStatus.UNAUTHORIZED)
+    throw new HttpException(msg, HttpStatus.UNAUTHORIZED);
   }
   static NotFoundException(msg: string) {
-    throw new HttpException(msg, HttpStatus.NOT_FOUND)
+    throw new HttpException(msg, HttpStatus.NOT_FOUND);
   }
   static ForbiddenException(msg: string) {
-    throw new HttpException(msg, HttpStatus.FORBIDDEN)
+    throw new HttpException(msg, HttpStatus.FORBIDDEN);
   }
   static InternalServerErrorException(msg: string) {
-    throw new HttpException(msg, HttpStatus.INTERNAL_SERVER_ERROR)
+    throw new HttpException(msg, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

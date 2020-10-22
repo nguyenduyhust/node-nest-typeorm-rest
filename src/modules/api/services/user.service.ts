@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { paginate, Pagination, IPaginationOptions } from 'nestjs-typeorm-paginate';
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 import { classToPlain } from 'class-transformer';
 
 import { User } from '@api/entities';
@@ -24,13 +28,15 @@ export interface UserResponse {
 
 @Injectable()
 export class UserService {
-
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
 
-  async findAll(options: IPaginationOptions, s: string): Promise<Pagination<UserResponse>> {
+  async findAll(
+    options: IPaginationOptions,
+    s: string,
+  ): Promise<Pagination<UserResponse>> {
     const queryBuilder = this.userRepository.createQueryBuilder('c');
     s = s.trim();
     if (s.length > 0) {
@@ -58,5 +64,4 @@ export class UserService {
   async findOneById(id: string) {
     return this.userRepository.findOne(id);
   }
-
 }

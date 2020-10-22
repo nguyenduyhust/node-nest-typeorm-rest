@@ -1,6 +1,4 @@
-import {
-  IsEmail, IsNotEmpty,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserDTO } from './user.dto';
 
@@ -34,5 +32,5 @@ export class AuthResponseDTO {
   token_type: string;
 
   @ApiProperty()
-  user: UserDTO
+  user: UserDTO;
 }

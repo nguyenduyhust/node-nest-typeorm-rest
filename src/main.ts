@@ -9,10 +9,12 @@ async function bootstrap() {
   // configuration
   const configService = app.get(ConfigService);
   // validation pipe
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
   // swagger
   const options = new DocumentBuilder()
     .setTitle('Node Nest Typeorm Rest API')

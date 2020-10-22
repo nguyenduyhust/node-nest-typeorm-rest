@@ -1,10 +1,5 @@
 import { User } from './user.entity';
 
-const ENTITIES = [
-  User
-];
+const ENTITIES = [User];
 
-export {
-  User,
-  ENTITIES,
-};
+export { User, ENTITIES };

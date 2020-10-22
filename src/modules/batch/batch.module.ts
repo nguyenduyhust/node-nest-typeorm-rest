@@ -4,9 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ENTITIES } from '@api/entities';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature(ENTITIES),
-  ],
+  imports: [TypeOrmModule.forFeature(ENTITIES)],
   providers: [...SERVICES],
 })
-export class BatchModule { }
+export class BatchModule {}
